@@ -29,11 +29,13 @@ const Navbar = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  const menuItems = [
-    { text: 'Home', path: '/' },
-    { text: 'Events', path: '/events' },
-    { text: 'Gallery', path: '/gallery' },
-    { text: 'Menu', path: '/menu' },
+  const pages = [
+    { name: 'Home', path: '/' },
+    { name: 'About', path: '/about' },
+    { name: 'Events', path: '/events' },
+    { name: 'Menu', path: '/menu' },
+    { name: 'Gallery', path: '/gallery' },
+    { name: 'Reservations', path: '/reservations' },
   ];
 
   const handleDrawerToggle = () => {
@@ -43,9 +45,9 @@ const Navbar = () => {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <List>
-        {menuItems.map((item) => (
+        {pages.map((item) => (
           <ListItem
-            key={item.text}
+            key={item.name}
             component={RouterLink}
             to={item.path}
             sx={{
@@ -55,7 +57,7 @@ const Navbar = () => {
               },
             }}
           >
-            <ListItemText primary={item.text} />
+            <ListItemText primary={item.name} />
           </ListItem>
         ))}
         <ListItem
@@ -118,9 +120,9 @@ const Navbar = () => {
           </IconButton>
         ) : (
           <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-            {menuItems.map((item) => (
+            {pages.map((item) => (
               <Button
-                key={item.text}
+                key={item.name}
                 component={RouterLink}
                 to={item.path}
                 color="inherit"
@@ -131,7 +133,7 @@ const Navbar = () => {
                   },
                 }}
               >
-                {item.text}
+                {item.name}
               </Button>
             ))}
             <IconButton

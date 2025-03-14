@@ -1,8 +1,12 @@
 import React from 'react';
 import { ThemeProvider, createTheme } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import IdentityGamePopup from './components/IdentityGamePopup';
 import Home from './pages/Home';
+import About from './pages/About';
 import Events from './pages/Events';
 import Reservations from './pages/Reservations';
 import Menu from './pages/Menu';
@@ -80,46 +84,97 @@ function App() {
     {
       path: "/",
       element: (
-        <>
+        <Box sx={{ 
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column'
+        }}>
           <Navbar />
-          <Home />
-        </>
+          <Box sx={{ flex: 1 }}>
+            <Home />
+          </Box>
+          <Footer />
+        </Box>
+      )
+    },
+    {
+      path: "/about",
+      element: (
+        <Box sx={{ 
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column'
+        }}>
+          <Navbar />
+          <Box sx={{ flex: 1 }}>
+            <About />
+          </Box>
+          <Footer />
+        </Box>
       )
     },
     {
       path: "/events",
       element: (
-        <>
+        <Box sx={{ 
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column'
+        }}>
           <Navbar />
-          <Events />
-        </>
+          <Box sx={{ flex: 1 }}>
+            <Events />
+          </Box>
+          <Footer />
+        </Box>
       )
     },
     {
       path: "/reservations",
       element: (
-        <>
+        <Box sx={{ 
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column'
+        }}>
           <Navbar />
-          <Reservations />
-        </>
+          <Box sx={{ flex: 1 }}>
+            <Reservations />
+          </Box>
+          <Footer />
+        </Box>
       )
     },
     {
       path: "/menu",
       element: (
-        <>
+        <Box sx={{ 
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column'
+        }}>
           <Navbar />
-          <Menu />
-        </>
+          <Box sx={{ flex: 1 }}>
+            <Menu />
+          </Box>
+          <Footer />
+        </Box>
       )
     },
     {
       path: "/gallery",
       element: (
-        <>
+        <Box sx={{ 
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column'
+        }}>
           <Navbar />
-          <Gallery />
-        </>
+          <Box sx={{ flex: 1 }}>
+            <Gallery />
+          </Box>
+          <Footer />
+        </Box>
       )
     }
   ];
@@ -135,6 +190,7 @@ function App() {
           }
         })}
       />
+      <IdentityGamePopup />
     </ThemeProvider>
   );
 }
