@@ -327,16 +327,23 @@ const Reservations = () => {
   };
 
   return (
-    <Box sx={{ pt: 8, pb: 8, minHeight: '100vh' }}>
+    <Box sx={{ 
+      pt: 15, // Increased top margin
+      pb: 8, 
+      minHeight: '100vh',
+      background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
+    }}>
       <Container maxWidth="md">
         <Typography
           variant="h2"
           align="center"
           sx={{
-            mb: 6,
+            mb: 8,
             background: 'linear-gradient(45deg, #FF69B4, #9370DB)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
+            fontWeight: 'bold',
+            textShadow: '2px 2px 4px rgba(0,0,0,0.1)',
           }}
         >
           Make a Reservation
@@ -346,13 +353,26 @@ const Reservations = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           sx={{
-            p: 4,
-            background: 'rgba(255, 255, 255, 0.05)',
+            p: { xs: 3, md: 6 },
+            background: 'rgba(255, 255, 255, 0.9)',
             backdropFilter: 'blur(10px)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
+            borderRadius: '16px',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
+            boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.15)',
           }}
         >
-          <Stepper activeStep={activeStep} sx={{ mb: 4 }}>
+          <Stepper 
+            activeStep={activeStep} 
+            sx={{ 
+              mb: 6,
+              '& .MuiStepLabel-root .Mui-completed': {
+                color: '#FF69B4',
+              },
+              '& .MuiStepLabel-root .Mui-active': {
+                color: '#9370DB',
+              },
+            }}
+          >
             {steps.map((label) => (
               <Step key={label}>
                 <StepLabel>{label}</StepLabel>
@@ -361,38 +381,74 @@ const Reservations = () => {
           </Stepper>
 
           <form onSubmit={handleSubmit}>
-            {renderStepContent(activeStep)}
+            <Box sx={{ 
+              mb: 4,
+              p: { xs: 2, md: 4 },
+              background: 'rgba(255, 255, 255, 0.5)',
+              borderRadius: '12px',
+              border: '1px solid rgba(255, 255, 255, 0.3)',
+            }}>
+              {renderStepContent(activeStep)}
+            </Box>
 
-            <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 4 }}>
+            <Box sx={{ 
+              display: 'flex', 
+              justifyContent: 'space-between',
+              mt: 6,
+              pt: 3,
+              borderTop: '1px solid rgba(0, 0, 0, 0.1)'
+            }}>
               {activeStep !== 0 && (
                 <Button
                   onClick={handleBack}
-                  sx={{ mr: 2 }}
+                  sx={{ 
+                    px: 4,
+                    color: '#9370DB',
+                    '&:hover': {
+                      background: 'rgba(147, 112, 219, 0.1)',
+                    },
+                  }}
                 >
                   Back
                 </Button>
               )}
+              <Box sx={{ flex: '1 1 auto' }} />
               {activeStep === steps.length - 1 ? (
                 <Button
                   variant="contained"
                   type="submit"
+                  disabled={loading}
                   sx={{
+                    px: 4,
+                    py: 1.5,
                     background: 'linear-gradient(45deg, #FF69B4, #9370DB)',
+                    fontSize: '1.1rem',
+                    fontWeight: 500,
+                    boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
                     '&:hover': {
                       background: 'linear-gradient(45deg, #DB7093, #7B68EE)',
+                      transform: 'translateY(-2px)',
+                      boxShadow: '0 6px 20px rgba(0,0,0,0.3)',
                     },
                   }}
                 >
-                  Confirm Reservation
+                  {loading ? 'Confirming...' : 'Confirm Reservation'}
                 </Button>
               ) : (
                 <Button
                   variant="contained"
                   onClick={handleNext}
                   sx={{
+                    px: 4,
+                    py: 1.5,
                     background: 'linear-gradient(45deg, #FF69B4, #9370DB)',
+                    fontSize: '1.1rem',
+                    fontWeight: 500,
+                    boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
                     '&:hover': {
                       background: 'linear-gradient(45deg, #DB7093, #7B68EE)',
+                      transform: 'translateY(-2px)',
+                      boxShadow: '0 6px 20px rgba(0,0,0,0.3)',
                     },
                   }}
                 >
@@ -403,37 +459,90 @@ const Reservations = () => {
           </form>
         </MotionPaper>
 
+        {error && (
+          <Alert 
+            severity="error" 
+            sx={{ 
+              mt: 4,
+              background: 'rgba(255,255,255,0.9)',
+              backdropFilter: 'blur(10px)',
+            }}
+          >
+            {error}
+          </Alert>
+        )}
+
         <Dialog
           open={showSuccess}
           onClose={handleCloseSuccess}
           maxWidth="sm"
           fullWidth
+          PaperProps={{
+            sx: {
+              background: 'rgba(255, 255, 255, 0.95)',
+              backdropFilter: 'blur(10px)',
+              borderRadius: '16px',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.15)',
+            }
+          }}
         >
-          <DialogContent sx={{ textAlign: 'center', py: 4 }}>
-            <CelebrationIcon sx={{ fontSize: 60, color: '#FF69B4', mb: 2 }} />
+          <DialogContent sx={{ textAlign: 'center', py: 6 }}>
+            <CelebrationIcon 
+              sx={{ 
+                fontSize: 80, 
+                color: '#FF69B4', 
+                mb: 3,
+                animation: 'bounce 1s infinite'
+              }} 
+            />
             <DialogTitle sx={{ 
               background: 'linear-gradient(45deg, #FF69B4, #9370DB)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               fontWeight: 700,
+              fontSize: '2rem',
+              mb: 2
             }}>
               Thank You for Your Reservation!
             </DialogTitle>
-            <Typography variant="h6" sx={{ mt: 2, color: '#9370DB' }}>
+            <Typography 
+              variant="h6" 
+              sx={{ 
+                mt: 3, 
+                color: '#9370DB',
+                fontWeight: 500,
+                fontSize: '1.3rem'
+              }}
+            >
               {successMessage}
             </Typography>
-            <Typography variant="body1" sx={{ mt: 2, color: 'text.secondary' }}>
+            <Typography 
+              variant="body1" 
+              sx={{ 
+                mt: 3, 
+                color: 'text.secondary',
+                fontSize: '1.1rem'
+              }}
+            >
               We'll send you a confirmation email shortly.
             </Typography>
           </DialogContent>
-          <DialogActions sx={{ justifyContent: 'center', pb: 3 }}>
+          <DialogActions sx={{ justifyContent: 'center', pb: 4 }}>
             <Button
               onClick={handleCloseSuccess}
               variant="contained"
               sx={{
+                px: 4,
+                py: 1.5,
                 background: 'linear-gradient(45deg, #FF69B4, #9370DB)',
+                fontSize: '1.1rem',
+                fontWeight: 500,
+                boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
                 '&:hover': {
                   background: 'linear-gradient(45deg, #DB7093, #7B68EE)',
+                  transform: 'translateY(-2px)',
+                  boxShadow: '0 6px 20px rgba(0,0,0,0.3)',
                 },
               }}
             >

@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import IdentityGamePopup from './components/IdentityGamePopup';
+import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
 import About from './pages/About';
 import Events from './pages/Events';
@@ -90,6 +91,7 @@ function App() {
           display: 'flex',
           flexDirection: 'column'
         }}>
+          <ScrollToTop />
           <Navbar />
           <Box sx={{ flex: 1 }}>
             <Home />
@@ -106,6 +108,7 @@ function App() {
           display: 'flex',
           flexDirection: 'column'
         }}>
+          <ScrollToTop />
           <Navbar />
           <Box sx={{ flex: 1 }}>
             <About />
@@ -122,6 +125,7 @@ function App() {
           display: 'flex',
           flexDirection: 'column'
         }}>
+          <ScrollToTop />
           <Navbar />
           <Box sx={{ flex: 1 }}>
             <Events />
@@ -138,6 +142,7 @@ function App() {
           display: 'flex',
           flexDirection: 'column'
         }}>
+          <ScrollToTop />
           <Navbar />
           <Box sx={{ flex: 1 }}>
             <Team />
@@ -154,6 +159,7 @@ function App() {
           display: 'flex',
           flexDirection: 'column'
         }}>
+          <ScrollToTop />
           <Navbar />
           <Box sx={{ flex: 1 }}>
             <Reservations />
@@ -170,6 +176,7 @@ function App() {
           display: 'flex',
           flexDirection: 'column'
         }}>
+          <ScrollToTop />
           <Navbar />
           <Box sx={{ flex: 1 }}>
             <Menu />
@@ -186,6 +193,7 @@ function App() {
           display: 'flex',
           flexDirection: 'column'
         }}>
+          <ScrollToTop />
           <Navbar />
           <Box sx={{ flex: 1 }}>
             <Gallery />

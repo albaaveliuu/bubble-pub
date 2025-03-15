@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
 import {
   AppBar,
   Toolbar,
@@ -14,8 +14,6 @@ import {
   useMediaQuery,
   Box,
   Container,
-  Menu,
-  MenuItem,
   Link,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -28,6 +26,7 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const location = useLocation();
 
   const pages = [
     { name: 'Home', path: '/' },
@@ -43,136 +42,157 @@ const Navbar = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <List>
-        {pages.map((item) => (
-          <ListItem
-            key={item.name}
-            component={RouterLink}
-            to={item.path}
-            sx={{
-              color: 'white',
-              '&:hover': {
-                background: 'rgba(255, 255, 255, 0.1)',
-              },
-            }}
-          >
-            <ListItemText primary={item.name} />
-          </ListItem>
-        ))}
-        <ListItem
-          component="a"
-          href="https://www.instagram.com/bubble__pub/?hl=en"
-          target="_blank"
-          rel="noopener noreferrer"
-          sx={{
-            color: 'white',
-            '&:hover': {
-              background: 'rgba(255, 255, 255, 0.1)',
-            },
-          }}
-        >
-          <ListItemText primary="Instagram" />
-        </ListItem>
-      </List>
-    </Box>
-  );
-
   return (
     <AppBar 
       position="fixed" 
       sx={{ 
-        background: 'rgba(0, 0, 0, 0.95)',
+        background: 'rgba(255, 255, 255, 0.9)',
         backdropFilter: 'blur(10px)',
-        boxShadow: '0 2px 10px rgba(0, 0, 0, 0.3)',
+        boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
       }}
     >
-      <Toolbar>
-        <Typography
-          variant="h6"
-          component={RouterLink}
-          to="/"
-          sx={{
-            flexGrow: 1,
-            fontWeight: 700,
-            background: 'linear-gradient(45deg, #FF69B4, #9370DB)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            textDecoration: 'none',
-            cursor: 'pointer',
-            '&:hover': {
-              opacity: 0.9,
-            },
+      <Container maxWidth="xl">
+        <Toolbar 
+          disableGutters 
+          sx={{ 
+            display: 'flex', 
+            justifyContent: 'center',
+            position: 'relative',
+            minHeight: '70px'
           }}
         >
-          BUBBLE
-        </Typography>
-
-        {isMobile ? (
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ color: 'white' }}
+          {/* Logo positioned absolutely on the left */}
+          <Typography
+            variant="h6"
+            component={RouterLink}
+            to="/"
+            sx={{
+              position: 'absolute',
+              left: 0,
+              fontWeight: 700,
+              background: 'linear-gradient(45deg, #FF69B4, #9370DB)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              textDecoration: 'none',
+              '&:hover': {
+                textDecoration: 'none',
+              },
+            }}
           >
-            <MenuIcon />
-          </IconButton>
-        ) : (
-          <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-            {pages.map((item) => (
-              <Button
-                key={item.name}
-                component={RouterLink}
-                to={item.path}
-                color="inherit"
+            BUBBLE
+          </Typography>
+
+          {isMobile ? (
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ 
+                position: 'absolute',
+                right: 0,
+              }}
+            >
+              <MenuIcon sx={{ color: '#FF69B4' }} />
+            </IconButton>
+          ) : (
+            <>
+              {/* Centered navigation items */}
+              <Box 
+                sx={{ 
+                  display: 'flex', 
+                  justifyContent: 'center',
+                  gap: 3,
+                  mx: 'auto'
+                }}
+              >
+                {pages.map((page) => (
+                  <Button
+                    key={page.name}
+                    component={RouterLink}
+                    to={page.path}
+                    sx={{
+                      color: location.pathname === page.path ? '#FF69B4' : 'text.primary',
+                      fontWeight: 500,
+                      '&:hover': {
+                        background: 'rgba(255, 105, 180, 0.1)',
+                        color: '#FF69B4',
+                      },
+                    }}
+                  >
+                    {page.name}
+                  </Button>
+                ))}
+              </Box>
+              
+              {/* Instagram icon positioned absolutely on the right */}
+              <IconButton
+                component="a"
+                href="https://www.instagram.com/bubble__pub/?hl=en"
+                target="_blank"
+                rel="noopener noreferrer"
                 sx={{
-                  color: 'white',
+                  position: 'absolute',
+                  right: 0,
+                  color: '#FF69B4',
                   '&:hover': {
-                    background: 'rgba(255, 255, 255, 0.1)',
+                    background: 'rgba(255, 105, 180, 0.1)',
                   },
                 }}
               >
-                {item.name}
-              </Button>
-            ))}
-            <IconButton
-              component="a"
-              href="https://www.instagram.com/bubble__pub/?hl=en"
-              target="_blank"
-              rel="noopener noreferrer"
-              sx={{
-                color: 'white',
-                '&:hover': {
-                  background: 'rgba(255, 255, 255, 0.1)',
-                  color: '#FF69B4',
-                },
-              }}
-            >
-              <InstagramIcon />
-            </IconButton>
-          </Box>
-        )}
-      </Toolbar>
-      <Drawer
-        variant="temporary"
-        anchor="right"
-        open={mobileOpen}
-        onClose={handleDrawerToggle}
-        ModalProps={{
-          keepMounted: true,
-        }}
-        PaperProps={{
-          sx: {
-            background: 'rgba(0, 0, 0, 0.95)',
-            backdropFilter: 'blur(10px)',
-            width: 240,
-          },
-        }}
-      >
-        {drawer}
-      </Drawer>
+                <InstagramIcon />
+              </IconButton>
+            </>
+          )}
+
+          <Drawer
+            anchor="right"
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            PaperProps={{
+              sx: {
+                background: 'rgba(255, 255, 255, 0.95)',
+                backdropFilter: 'blur(10px)',
+                width: 240,
+              },
+            }}
+          >
+            <List>
+              {pages.map((page) => (
+                <ListItem
+                  key={page.name}
+                  component={RouterLink}
+                  to={page.path}
+                  onClick={handleDrawerToggle}
+                  sx={{
+                    color: location.pathname === page.path ? '#FF69B4' : 'text.primary',
+                    '&:hover': {
+                      background: 'rgba(255, 105, 180, 0.1)',
+                    },
+                  }}
+                >
+                  <ListItemText primary={page.name} />
+                </ListItem>
+              ))}
+              <ListItem
+                component="a"
+                href="https://www.instagram.com/bubble__pub/?hl=en"
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{
+                  color: 'text.primary',
+                  '&:hover': {
+                    background: 'rgba(255, 105, 180, 0.1)',
+                  },
+                }}
+              >
+                <InstagramIcon sx={{ mr: 1 }} />
+                <ListItemText primary="Instagram" />
+              </ListItem>
+            </List>
+          </Drawer>
+        </Toolbar>
+      </Container>
     </AppBar>
   );
 };
