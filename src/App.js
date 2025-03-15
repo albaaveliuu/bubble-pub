@@ -8,6 +8,7 @@ import IdentityGamePopup from './components/IdentityGamePopup';
 import Home from './pages/Home';
 import About from './pages/About';
 import Events from './pages/Events';
+import Team from './pages/Team';
 import Reservations from './pages/Reservations';
 import Menu from './pages/Menu';
 import Gallery from './pages/Gallery';
@@ -124,6 +125,22 @@ function App() {
           <Navbar />
           <Box sx={{ flex: 1 }}>
             <Events />
+          </Box>
+          <Footer />
+        </Box>
+      )
+    },
+    {
+      path: "/team",
+      element: (
+        <Box sx={{ 
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column'
+        }}>
+          <Navbar />
+          <Box sx={{ flex: 1 }}>
+            <Team />
           </Box>
           <Footer />
         </Box>
