@@ -30,7 +30,6 @@ const Navbar = () => {
 
   const pages = [
     { name: 'Home', path: '/' },
-    { name: 'About', path: '/about' },
     { name: 'Events', path: '/events' },
     { name: 'Menu', path: '/menu' },
     { name: 'Team', path: '/team' },

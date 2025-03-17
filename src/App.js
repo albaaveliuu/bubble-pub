@@ -215,7 +215,7 @@ function App() {
           }
         })}
       />
-      <IdentityGamePopup />
+  //
     </ThemeProvider>
   );
 }
